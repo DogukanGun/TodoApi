@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -14,25 +15,16 @@ import javax.validation.constraints.NotNull;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateUpdateUserRequest {
+public class CreateUpdateTodoListElementRequest {
 
-    @NotNull
-    @NotBlank
-    @Length(min = 2,max = 50)
-    private String name;
-
-    @NotNull
-    @NotBlank
-    @Length(min = 2,max = 50)
-    private String surname;
-
-    @NotNull
-    @NotBlank
-    @Length(min = 2,max = 50)
-    private String username;
 
     @NotNull
     @NotBlank
     @Length(min = 8,max = 50)
-    private String password;
+    private String text;
+
+    @NotNull
+    @NotBlank
+    @Min(1)
+    private Integer todoListId;
 }
