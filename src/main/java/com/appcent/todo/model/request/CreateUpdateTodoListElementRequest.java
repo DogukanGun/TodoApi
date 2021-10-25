@@ -1,6 +1,7 @@
 package com.appcent.todo.model.request;
 
 
+import com.appcent.todo.model.enums.TodoElementStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,4 +28,6 @@ public class CreateUpdateTodoListElementRequest {
     @NotBlank
     @Min(1)
     private Integer todoListId;
+
+    private String status = TodoElementStatus.PENDING.toString();
 }

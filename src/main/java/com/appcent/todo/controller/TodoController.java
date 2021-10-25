@@ -14,6 +14,10 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("todo")
+// TODO: 24.10.2021 Unit test yazilacak
+// TODO: 24.10.2021 Cloud yuklemeye bakilacak
+// TODO: 24.10.2021 Arayuz yapilacak
+// TODO: 24.10.2021 Arayuz hazir olabilir mi onu sor
 public class TodoController {
     private final TodoListService todoListService;
 

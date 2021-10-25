@@ -25,8 +25,15 @@ public class TodoListElementService {
 
     public TodoListElementDto createTodoListElement(CreateUpdateTodoListElementRequest createUpdateTodoListElementRequest){
         TodoListElement todoListElement = TODO_LIST_ELEMENT_MAPPER.createTodoListElement(createUpdateTodoListElementRequest);
-        todoListElement = todoListElementRepository.save(todoListElement);
-        return TODO_LIST_ELEMENT_MAPPER.convertToTodoListElementDto(todoListElement);
+        if (todoListElement.getStatus().equalsIgnoreCase(TodoElementStatus.DONE.toString())){
+            todoListElement.setStatus(TodoElementStatus.DONE.toString());
+        }
+        else if (todoListElement.getStatus().equalsIgnoreCase(TodoElementStatus.IN_PROGRESS.toString())){
+            todoListElement.setStatus(TodoElementStatus.IN_PROGRESS.toString());
+        }else{
+            todoListElement.setStatus(TodoElementStatus.PENDING.toString());
+        }
+        return TODO_LIST_ELEMENT_MAPPER.convertToTodoListElementDto(todoListElementRepository.save(todoListElement));
     }
 
     //update
@@ -39,26 +46,26 @@ public class TodoListElementService {
 
     public TodoListElementDto setStatusInProgress(int id){
         TodoListElement todoListElement = getTodoListElement(id);
-        if (todoListElement.getStatus() == TodoElementStatus.IN_PROGRESS){
+        if (todoListElement.getStatus().equalsIgnoreCase(TodoElementStatus.IN_PROGRESS.toString())){
             throw new BusinessException("Status has already set");
         }
-        todoListElement.setStatus(TodoElementStatus.IN_PROGRESS);
+        todoListElement.setStatus(TodoElementStatus.IN_PROGRESS.toString());
         return TODO_LIST_ELEMENT_MAPPER.convertToTodoListElementDto(todoListElementRepository.save(todoListElement));
     }
     public TodoListElementDto setStatusDone(int id){
         TodoListElement todoListElement = getTodoListElement(id);
-         if (todoListElement.getStatus() == TodoElementStatus.DONE){
+         if (todoListElement.getStatus().equalsIgnoreCase(TodoElementStatus.DONE.toString())){
             throw new BusinessException("Status has already set");
         }
-        todoListElement.setStatus(TodoElementStatus.DONE);
+        todoListElement.setStatus(TodoElementStatus.DONE.toString());
         return TODO_LIST_ELEMENT_MAPPER.convertToTodoListElementDto(todoListElementRepository.save(todoListElement));
     }
     public TodoListElementDto setStatusPending(int id){
         TodoListElement todoListElement = getTodoListElement(id);
-        if (todoListElement.getStatus() == TodoElementStatus.PENDING){
+        if (todoListElement.getStatus().equalsIgnoreCase(TodoElementStatus.PENDING.toString())){
             throw new BusinessException("Status has already set");
         }
-        todoListElement.setStatus(TodoElementStatus.PENDING);
+        todoListElement.setStatus(TodoElementStatus.PENDING.toString());
         return TODO_LIST_ELEMENT_MAPPER.convertToTodoListElementDto(todoListElementRepository.save(todoListElement));
     }
 

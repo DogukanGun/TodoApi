@@ -14,6 +14,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "todo_list_element")
 public class TodoListElement {
 
     @Id
@@ -30,7 +31,6 @@ public class TodoListElement {
     @JoinColumn(name = "todo_list_id",insertable = false,updatable = false)
     private TodoList todoList;
 
-    @Column(insertable = false,updatable = false)
-    @Builder.Default
-    private TodoElementStatus status = TodoElementStatus.PENDING;
+    @Column(nullable = false)
+    private String status ;
 }

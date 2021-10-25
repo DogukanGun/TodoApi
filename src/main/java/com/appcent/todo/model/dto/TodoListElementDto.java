@@ -19,5 +19,5 @@ public class TodoListElementDto {
 
     private Integer todoListId;
 
-    private TodoElementStatus status;
+    private String status;
 }
