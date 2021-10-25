@@ -25,20 +25,20 @@ public class TodoListElementController {
         return todoListElementService.getTodoListElementDto(id);
     }
 
-    @PatchMapping("set-status-pending/{id}")
-    public TodoListElementDto setStatusPending(@PathVariable int id){
-        return todoListElementService.setStatusPending(id);
+    @PatchMapping("set-status/{id}")
+    public TodoListElementDto setStatusPending(@PathVariable int id, @RequestBody CreateUpdateTodoListElementRequest createUpdateTodoListElementRequest){
+        return todoListElementService.setStatus(id,createUpdateTodoListElementRequest);
     }
-
-    @PatchMapping("set-status-done/{id}")
-    public TodoListElementDto setStatusDone(@PathVariable int id){
-        return todoListElementService.setStatusDone(id);
-    }
-
-    @PatchMapping("set-status-progress/{id}")
-    public TodoListElementDto setStatusProgress(@PathVariable int id){
-        return todoListElementService.setStatusInProgress(id);
-    }
+//
+//    @PatchMapping("set-status-done/{id}")
+//    public TodoListElementDto setStatusDone(@PathVariable int id){
+//        return todoListElementService.setStatusDone(id);
+//    }
+//
+//    @PatchMapping("set-status-progress/{id}")
+//    public TodoListElementDto setStatusProgress(@PathVariable int id){
+//        return todoListElementService.setStatusInProgress(id);
+//    }
 
     @PutMapping("{id}")
     public TodoListElementDto updateTodoListElement(@PathVariable int id,@RequestBody CreateUpdateTodoListElementRequest createUpdateTodoListElementRequest){

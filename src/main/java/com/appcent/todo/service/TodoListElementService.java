@@ -25,15 +25,19 @@ public class TodoListElementService {
 
     public TodoListElementDto createTodoListElement(CreateUpdateTodoListElementRequest createUpdateTodoListElementRequest){
         TodoListElement todoListElement = TODO_LIST_ELEMENT_MAPPER.createTodoListElement(createUpdateTodoListElementRequest);
-        if (todoListElement.getStatus().equalsIgnoreCase(TodoElementStatus.DONE.toString())){
-            todoListElement.setStatus(TodoElementStatus.DONE.toString());
-        }
-        else if (todoListElement.getStatus().equalsIgnoreCase(TodoElementStatus.IN_PROGRESS.toString())){
-            todoListElement.setStatus(TodoElementStatus.IN_PROGRESS.toString());
-        }else{
-            todoListElement.setStatus(TodoElementStatus.PENDING.toString());
-        }
+        todoListElement.setStatus(setStatus(createUpdateTodoListElementRequest));
         return TODO_LIST_ELEMENT_MAPPER.convertToTodoListElementDto(todoListElementRepository.save(todoListElement));
+    }
+
+    private String setStatus(CreateUpdateTodoListElementRequest createUpdateTodoListElementRequest) {
+        if (createUpdateTodoListElementRequest.getStatus().equalsIgnoreCase(TodoElementStatus.DONE.toString())){
+            return TodoElementStatus.DONE.toString();
+        }
+        else if (createUpdateTodoListElementRequest.getStatus().equalsIgnoreCase(TodoElementStatus.IN_PROGRESS.toString())){
+            return TodoElementStatus.IN_PROGRESS.toString();
+        }else{
+            return TodoElementStatus.PENDING.toString();
+        }
     }
 
     //update
@@ -44,30 +48,39 @@ public class TodoListElementService {
         return TODO_LIST_ELEMENT_MAPPER.convertToTodoListElementDto(todoListElementRepository.save(todoListElement));
     }
 
-    public TodoListElementDto setStatusInProgress(int id){
+    public TodoListElementDto setStatus(int id,CreateUpdateTodoListElementRequest createUpdateTodoListElementRequest){
         TodoListElement todoListElement = getTodoListElement(id);
-        if (todoListElement.getStatus().equalsIgnoreCase(TodoElementStatus.IN_PROGRESS.toString())){
+        if (todoListElement.getStatus().equalsIgnoreCase(createUpdateTodoListElementRequest.getStatus())){
             throw new BusinessException("Status has already set");
         }
-        todoListElement.setStatus(TodoElementStatus.IN_PROGRESS.toString());
+        todoListElement.setStatus(setStatus(createUpdateTodoListElementRequest));
         return TODO_LIST_ELEMENT_MAPPER.convertToTodoListElementDto(todoListElementRepository.save(todoListElement));
     }
-    public TodoListElementDto setStatusDone(int id){
-        TodoListElement todoListElement = getTodoListElement(id);
-         if (todoListElement.getStatus().equalsIgnoreCase(TodoElementStatus.DONE.toString())){
-            throw new BusinessException("Status has already set");
-        }
-        todoListElement.setStatus(TodoElementStatus.DONE.toString());
-        return TODO_LIST_ELEMENT_MAPPER.convertToTodoListElementDto(todoListElementRepository.save(todoListElement));
-    }
-    public TodoListElementDto setStatusPending(int id){
-        TodoListElement todoListElement = getTodoListElement(id);
-        if (todoListElement.getStatus().equalsIgnoreCase(TodoElementStatus.PENDING.toString())){
-            throw new BusinessException("Status has already set");
-        }
-        todoListElement.setStatus(TodoElementStatus.PENDING.toString());
-        return TODO_LIST_ELEMENT_MAPPER.convertToTodoListElementDto(todoListElementRepository.save(todoListElement));
-    }
+
+//    public TodoListElementDto setStatusInProgress(int id){
+//        TodoListElement todoListElement = getTodoListElement(id);
+//        if (todoListElement.getStatus().equalsIgnoreCase(TodoElementStatus.IN_PROGRESS.toString())){
+//            throw new BusinessException("Status has already set");
+//        }
+//        todoListElement.setStatus(TodoElementStatus.IN_PROGRESS.toString());
+//        return TODO_LIST_ELEMENT_MAPPER.convertToTodoListElementDto(todoListElementRepository.save(todoListElement));
+//    }
+//    public TodoListElementDto setStatusDone(int id){
+//        TodoListElement todoListElement = getTodoListElement(id);
+//         if (todoListElement.getStatus().equalsIgnoreCase(TodoElementStatus.DONE.toString())){
+//            throw new BusinessException("Status has already set");
+//        }
+//        todoListElement.setStatus(TodoElementStatus.DONE.toString());
+//        return TODO_LIST_ELEMENT_MAPPER.convertToTodoListElementDto(todoListElementRepository.save(todoListElement));
+//    }
+//    public TodoListElementDto setStatusPending(int id){
+//        TodoListElement todoListElement = getTodoListElement(id);
+//        if (todoListElement.getStatus().equalsIgnoreCase(TodoElementStatus.PENDING.toString())){
+//            throw new BusinessException("Status has already set");
+//        }
+//        todoListElement.setStatus(TodoElementStatus.PENDING.toString());
+//        return TODO_LIST_ELEMENT_MAPPER.convertToTodoListElementDto(todoListElementRepository.save(todoListElement));
+//    }
 
     //get
 
