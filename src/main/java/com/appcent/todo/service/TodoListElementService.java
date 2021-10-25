@@ -10,7 +10,7 @@ import com.appcent.todo.model.request.CreateUpdateTodoListElementRequest;
 import com.appcent.todo.repository.TodoListElementRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.webjars.NotFoundException;
+import com.appcent.todo.exception.NotFoundException;
 
 import java.util.List;
 
