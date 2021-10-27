@@ -6,6 +6,8 @@ import com.appcent.todo.model.request.CreateUpdateUserRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
@@ -16,4 +18,6 @@ public interface UserMapper {
     UserDto convertToUserDto(User user);
 
     User convertToUser(UserDto userDto);
+
+    List<UserDto> convertToUserDtoList(List<User> users);
 }

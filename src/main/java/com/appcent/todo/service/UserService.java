@@ -12,6 +12,8 @@ import static com.appcent.todo.model.mapper.UserMapper.USER_MAPPER;
 
 import com.appcent.todo.model.request.CreateUpdateUserRequest;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -26,5 +28,9 @@ public class UserService {
 
         return  USER_MAPPER.convertToUserDto(userRepository.save(user));
 
+    }
+
+    public List<UserDto> getUsers(){
+        return USER_MAPPER.convertToUserDtoList(userRepository.findAll());
     }
 }
